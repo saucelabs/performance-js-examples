@@ -9,12 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@wdio/dot-reporter": "^5.0.0-beta.5",
-    "@wdio/sauce-service": "^5.0.0-beta.5",
     "assert": "^1.4.1",
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "wdio-mocha-framework": "^0.6.4",
-    "webdriverio": "^5.0.0-beta.15"
+    "@wdio/cli": "^5.0.0-beta.13",
+    "@wdio/devtools-service": "^5.0.0-beta.13",
+    "@wdio/local-runner": "^5.0.0-beta.13",
+    "@wdio/dot-reporter": "^5.0.0-beta.13",
+    "@wdio/sauce-service": "^5.0.0-beta.13",
+    "@wdio/mocha-framework": "^5.0.0-beta.13",
+    "@wdio/selenium-standalone-service": "^5.0.0-beta.13",
+    "@wdio/sync": "^5.0.0-beta.13",
+    "webdriverio": "^5.0.0-beta.13"
   }
 }
