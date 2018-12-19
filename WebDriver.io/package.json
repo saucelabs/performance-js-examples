@@ -9,11 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@wdio/dot-reporter": "^5.0.0-beta.5",
+    "@wdio/sauce-service": "^5.0.0-beta.5",
     "assert": "^1.4.1",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "wdio-mocha-framework": "^0.6.4",
-    "wdio-sauce-service": "^0.4.14",
-    "webdriverio": "^4.14.1"
+    "webdriverio": "^5.0.0-beta.15"
   }
 }
