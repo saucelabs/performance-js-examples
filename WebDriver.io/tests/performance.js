@@ -29,8 +29,19 @@ describe('Performance Demo Test', () => {
     })
 
     it('(sauce:performance) should check speedIndex', () => {
+        const metrics = [
+            'load',
+            'speedIndex',
+            'pageWeight',
+            'pageWeightEncoded',
+            'timeToFirstByte',
+            'timeToFirstInteractive',
+            'firstContentfulPaint',
+            'perceptualSpeedIndex',
+            'domContentLoaded'
+        ];
         const performance = browser.getLogs('sauce:performance');
-        assert.ok('speedIndex' in performance, `SpeedIndex is missing`)
+        metrics.forEach((metric) => assert.ok(metric in performance, `${metric} metric is missing`));
     })
 
     it('(sauce:hello) should return test name', () => {
