@@ -1,0 +1,15 @@
+{
+  "name": "performance-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/nightwatch -e chrome tests"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "nightwatch": "0.9.16",
+    "saucelabs": "^1.5.0"
+  }
+}
