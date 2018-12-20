@@ -46,7 +46,6 @@
           "platform": "OS X 10.10",
           "version": "70.0",
           "browserName": "chrome",
-          "version": "latest",
           "extendedDebugging": true,
           "crmuxdriverVersion": "stable"
         },
