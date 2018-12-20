@@ -44,11 +44,8 @@ module.exports = {
 
     afterEach: function(client, done) {
         client.customSauceEnd();
-
         setTimeout(function() {
             done();
         }, 1000);
-
     }
-
 };
