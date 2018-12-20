@@ -17,7 +17,7 @@ exports.config = {
     logLevel: 'error',
     coloredLogs: true,
     baseUrl: 'https://www.saucedemo.com',
-    waitforTimeout: 50000,
+    waitforTimeout: 100000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
     services: ['sauce'],
@@ -28,6 +28,6 @@ exports.config = {
     },
     mochaOpts: {
         ui: 'bdd',
-        timeout: 50000
+        timeout: 100000
     }
 }
