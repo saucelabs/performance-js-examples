@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { Builder, By } = require('selenium-webdriver');
+const { Builder } = require('selenium-webdriver');
 const SauceLabs = require('saucelabs');
 
 const username = process.env.SAUCE_USERNAME;
