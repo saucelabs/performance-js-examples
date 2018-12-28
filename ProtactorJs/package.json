@@ -11,5 +11,12 @@
   },
   "dependencies": {
     "protractor": "^5.4.1"
+  },
+  "eslintConfig": {
+    "globals": {
+        "browser": true,
+        "element": true,
+        "by": true
+    }
   }
 }
