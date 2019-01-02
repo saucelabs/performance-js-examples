@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { Builder } = require('selenium-webdriver');
+const { Builder, By } = require('selenium-webdriver');
 const SauceLabs = require('saucelabs');
 
 const username = process.env.SAUCE_USERNAME;
@@ -15,20 +15,7 @@ const capabilities = {
 	version: '70.0',
 	browserName: 'chrome',
 	extendedDebugging: true,
-	crmuxdriverVersion: 'stable',
 	name: 'Performance Testing',
-	loggingPrefs: {
-		driver: 'ALL',
-		browser: 'ALL',
-		performance: 'ALL',
-		server: 'ALL',
-	},
-	chromeOptions: {
-		perfLoggingPrefs: {
-			enableNetwork: true,
-			enablePage: true,
-		},
-	},
 };
 let driver;
 let isTestPassed = true;
@@ -41,7 +28,9 @@ describe('Performance Testing', () => {
 			.build();
 		driver.sessionID = await driver.getSession();
 		await driver.get('https://www.saucedemo.com/');
-		await driver.sleep(3000);
+		await driver.findElement(By.css('[data-test="username"]')).sendKeys('standard_user');
+		await driver.findElement(By.css('[data-test="password"]')).sendKeys('secret_sauce');
+		await driver.findElement(By.css('.login-button')).click();
 	});
 
 	afterEach(function hook() {
