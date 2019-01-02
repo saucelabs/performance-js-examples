@@ -46,8 +46,7 @@
           "platform": "OS X 10.10",
           "version": "70.0",
           "browserName": "chrome",
-          "extendedDebugging": true,
-          "crmuxdriverVersion": "stable"
+          "extendedDebugging": true
         },
         "selenium_port": 80,
         "selenium_host": "ondemand.saucelabs.com"

@@ -6,7 +6,7 @@ module.exports = {
 
 	'Performance Testing': (browser) => {
 		browser
-			.url('https://www.saucedemo.com/')
+			.url('https://www.saucedemo.com/inventory.html')
 			.waitForElementVisible('body', 1000)
 			.setValue('input[data-test="username"]', 'standard_user')
 			.setValue('input[data-test="password"]', 'secret_sauce')
