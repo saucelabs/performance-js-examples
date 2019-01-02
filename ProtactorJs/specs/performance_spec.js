@@ -4,13 +4,7 @@ const { config } = require('../conf.js');
 describe('Performance Testing', () => {
 	beforeEach(() => {
 		browser.waitForAngularEnabled(false);
-		browser.get('/');
-		const username = element(by.css('[data-test="username"]'));
-		const password = element(by.css('[data-test="password"]'));
-		const submit = element(by.css('.login-button'));
-		username.sendKeys('standard_user');
-		password.sendKeys('secret_sauce');
-		submit.click();
+		browser.get('/inventory.html');
 	});
 
 	it('(sauce:network) should make a request for main.js', async () => {
