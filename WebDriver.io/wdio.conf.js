@@ -10,7 +10,6 @@ exports.config = {
 		platform: 'OS X 10.10',
 		version: '70.0',
 		extendedDebugging: true,
-		crmuxdriverVersion: 'stable',
 		name: 'Performance testing',
 	}],
 	sync: true,

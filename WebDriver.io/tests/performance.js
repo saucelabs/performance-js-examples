@@ -2,13 +2,7 @@ const assert = require('assert');
 
 describe('Performance Demo Test', () => {
 	before(() => {
-		browser.url('/');
-		const username = $('[data-test="username"]');
-		username.setValue('standard_user');
-		const password = $('[data-test="password"]');
-		password.setValue('secret_sauce');
-		const loginButton = $('.login-button');
-		loginButton.click();
+		browser.url('/inventory.html');
 	});
 
 	it('(sauce:network) should make a request for main.js', () => {
