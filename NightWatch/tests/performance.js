@@ -8,10 +8,7 @@ module.exports = {
 		browser
 			.url('https://www.saucedemo.com/inventory.html')
 			.waitForElementVisible('body', 1000)
-			.setValue('input[data-test="username"]', 'standard_user')
-			.setValue('input[data-test="password"]', 'secret_sauce')
-			.click('.login-button')
-			.waitForElementVisible('body', 1000)
+			.pause(3000)
 			.getLog('sauce:network', (network) => {
 				const isRequestExists = network.some(req => req.url.includes('main.js'));
 				assert.strictEqual(isRequestExists, true);
