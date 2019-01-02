@@ -2,7 +2,7 @@ const assert = require('assert');
 const { Given, Then } = require('cucumber');
 
 Given('I am testing extended debugging on webpage', async function test() {
-	await this.browser.url('https://www.saucedemo.com/');
+	await this.browser.url('https://www.saucedemo.com/inventory.html');
 	await this.browser.pause(2000);
 });
 

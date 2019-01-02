@@ -12,7 +12,6 @@ const options = {
 		platform: 'macOS 10.13',
 		version: '70',
 		extendedDebugging: true,
-		crmuxdriverVersion: 'stable',
 	},
 };
 
