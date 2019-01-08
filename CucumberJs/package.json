@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js"
+    "test": "cucumber-js",
+    "regression:test": "PERF_USERNAME=performance_glitch_user npm test"
   },
   "keywords": [],
   "author": "",

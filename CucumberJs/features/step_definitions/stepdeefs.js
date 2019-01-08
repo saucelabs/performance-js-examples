@@ -2,8 +2,14 @@ const assert = require('assert');
 const { Given, Then } = require('cucumber');
 
 Given('I am testing extended debugging on webpage', async function test() {
+	await this.browser.url('https://www.saucedemo.com/');
+	const username = await this.browser.$('[data-test="username"]');
+	await username.setValue(process.env.PERF_USERNAME || 'standard_user');
+	const password = await this.browser.$('[data-test="password"]');
+	await password.setValue('secret_sauce');
+	const login = await this.browser.$('.login-button');
+	await login.click();
 	await this.browser.url('https://www.saucedemo.com/inventory.html');
-	await this.browser.pause(2000);
 });
 
 Then('I check for sauce:network logs', async function test() {
