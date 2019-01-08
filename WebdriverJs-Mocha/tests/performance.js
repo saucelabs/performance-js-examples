@@ -27,8 +27,11 @@ describe('Performance Testing', () => {
 			.usingServer(server)
 			.build();
 		driver.sessionID = await driver.getSession();
+		await driver.get('https://www.saucedemo.com/');
+		await driver.findElement(By.css('[data-test="username"]')).sendKeys(process.env.PERF_USERNAME || 'standard_user');
+		await driver.findElement(By.css('[data-test="password"]')).sendKeys('secret_sauce');
+		await driver.findElement(By.css('.login-button')).click();
 		await driver.get('https://www.saucedemo.com/inventory.html');
-		await driver.sleep(3000);
 	});
 
 	afterEach(function hook() {
