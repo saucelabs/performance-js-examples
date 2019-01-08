@@ -4,6 +4,10 @@ const { config } = require('../conf.js');
 describe('Performance Testing', () => {
 	beforeEach(() => {
 		browser.waitForAngularEnabled(false);
+		browser.get('/');
+		element(by.css('[data-test="username"]')).sendKeys(process.env.PERF_USERNAME || 'standard_user');
+		element(by.css('[data-test="password"]')).sendKeys('secret_sauce');
+		element(by.css('.login-button')).click();
 		browser.get('/inventory.html');
 	});
 
