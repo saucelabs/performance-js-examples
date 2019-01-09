@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 60000 ./tests/**/*.js"
+    "test": "mocha --timeout 100000 ./tests/**/*.js",
+    "regression:test": "PERF_USERNAME=performance_glitch_user npm test"
   },
   "author": "",
   "license": "MIT",

@@ -2,6 +2,13 @@ const assert = require('assert');
 
 describe('Performance Demo Test', () => {
 	before(() => {
+		browser.url('/');
+		const username = $('[data-test="username"]');
+		username.setValue(process.env.PERF_USERNAME || 'standard_user');
+		const password = $('[data-test="password"]');
+		password.setValue('secret_sauce');
+		const loginButton = $('.login-button');
+		loginButton.click();
 		browser.url('/inventory.html');
 	});
 
@@ -11,7 +18,7 @@ describe('Performance Demo Test', () => {
 		assert.strictEqual(isRequestExists, true);
 	});
 
-	it('(sauce:metrics) should check pageLoadTime', () => {
+	it('(sauce:metrics) pageLoadTime should be less than 5s', () => {
 		const metrics = browser.getLogs('sauce:metrics');
 		const pageLoadTime = metrics.domContentLoaded - metrics.navigationStart;
 		assert.ok(pageLoadTime <= 5, `Expected page load time to be lower than 5s but was ${pageLoadTime}s`);

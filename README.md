@@ -40,6 +40,13 @@ This repository contains sample script of performance custom commands by using f
 ### Running Tests
 	$ npm test
 
+### Performance Regression Tests
+
+In demo app, we have `performance_glitch_user` user to test performance regression. By using this user PageLoad time will be increased by 5s and existing test case will be failed.
+	
+
+	$ npm run regression:test
+
 
 [Sauce Labs Dashboard](https://app.saucelabs.com/dashboard)
 

@@ -6,6 +6,11 @@ module.exports = {
 
 	'Performance Testing': (browser) => {
 		browser
+			.url('https://www.saucedemo.com/')
+			.waitForElementVisible('body', 1000)
+			.setValue('input[data-test="username"]', process.env.PERF_USERNAME || 'standard_user')
+			.setValue('input[data-test="password"]', 'secret_sauce')
+			.click('.login-button')
 			.url('https://www.saucedemo.com/inventory.html')
 			.waitForElementVisible('body', 1000)
 			.getLog('sauce:network', (network) => {

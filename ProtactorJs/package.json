@@ -4,7 +4,8 @@
   "description": "Protactor Test Demo",
   "main": "",
   "scripts": {
-    "test": "./node_modules/.bin/protractor conf.js"
+    "test": "./node_modules/.bin/protractor conf.js",
+    "regression:test": "PERF_USERNAME=performance_glitch_user npm test"
   },
   "devDependencies": {
     "https-proxy-agent": "latest"
