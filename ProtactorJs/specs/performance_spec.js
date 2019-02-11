@@ -28,7 +28,7 @@ describe('Performance Testing', () => {
 		assert.ok('domLoading' in timing, 'domLoading is missing');
 	});
 
-	it('(sauce:performance) should check speedIndex', async () => {
+	it('log (sauce:performance) should check speedIndex', async () => {
 		const metrics = [
 			'load',
 			'speedIndex',
@@ -44,7 +44,7 @@ describe('Performance Testing', () => {
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:performance) should assert performance has not regressed', async () => {
+	it('(sauce:performance) custom command should assert performance has not regressed', async () => {
 		const output = await browser.executeScript('sauce:performance', {
 			name: config.capabilities.name,
 			metrics: ['load'],

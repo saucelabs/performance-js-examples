@@ -30,7 +30,7 @@ describe('Performance Demo Test', function () { // eslint-disable-line func-name
 		assert.ok('domLoading' in timing, 'domLoading is missing');
 	});
 
-	it('(sauce:performance) should check speedIndex', () => {
+	it('logs (sauce:performance) should check speedIndex', () => {
 		const metrics = [
 			'load',
 			'speedIndex',
@@ -46,7 +46,7 @@ describe('Performance Demo Test', function () { // eslint-disable-line func-name
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:performance) should assert page load does not regress', () => {
+	it('(sauce:performance) custom command should assert performance has not regressed', () => {
 		const output = browser.execute('sauce:performance', {
 			name: title,
 			metrics: ['load'],

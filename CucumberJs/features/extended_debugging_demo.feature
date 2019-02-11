@@ -7,4 +7,4 @@ Feature: Is Performance captured?
         Then I check for sauce:metrics logs
         Then I check for sauce:timing logs
         Then I check for sauce:performance logs
-        Then I check for sauce:performance custom commands
+        Then I check the sauce:performance custom command

@@ -22,7 +22,7 @@ let driver;
 let isTestPassed = true;
 
 describe('Performance Testing', function () { // eslint-disable-line func-names
-	const title = this.title;
+	const { title } = this;
 	before(async () => {
 		driver = await new Builder()
 			.withCapabilities(capabilities)
@@ -65,7 +65,7 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 		assert.ok('domLoading' in timing, 'domLoading is missing');
 	});
 
-	it('(sauce:performance) should check speedIndex', async () => {
+	it('logs (sauce:performance) should check speedIndex', async () => {
 		const metrics = [
 			'load',
 			'speedIndex',
@@ -81,7 +81,7 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:performance) should assert performance does not regress', async () => {
+	it('(sauce:performance) custom command should assert performance has not regressed', async () => {
 		const output = await driver.executeScript('sauce:performance', {
 			name: title,
 			metrics: ['load'],
