@@ -2,7 +2,7 @@ const assert = require('assert');
 const { config } = require('../conf.js');
 
 describe('Performance Testing', () => {
-	beforeEach(() => {
+	beforeAll(() => {
 		browser.waitForAngularEnabled(false);
 		browser.get('/');
 		element(by.css('[data-test="username"]')).sendKeys(process.env.PERF_USERNAME || 'standard_user');
@@ -44,10 +44,11 @@ describe('Performance Testing', () => {
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:hello) should return test name', async () => {
-		const output = await browser.executeScript('sauce:hello', {
+	it('(sauce:performance) should assert performance has not regressed', async () => {
+		const output = await browser.executeScript('sauce:performance', {
 			name: config.capabilities.name,
+			metrics: ['load'],
 		});
-		assert.ok(output.includes(config.capabilities.name), 'Test name is missing');
+		assert.equal(output, true);
 	});
 });

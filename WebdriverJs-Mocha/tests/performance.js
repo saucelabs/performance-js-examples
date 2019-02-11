@@ -1,3 +1,4 @@
+/* eslint ignore */
 const assert = require('assert');
 const { Builder, By } = require('selenium-webdriver');
 const SauceLabs = require('saucelabs');
@@ -20,7 +21,8 @@ const capabilities = {
 let driver;
 let isTestPassed = true;
 
-describe('Performance Testing', () => {
+describe('Performance Testing', function () { // eslint-disable-line func-names
+	const title = this.title;
 	before(async () => {
 		driver = await new Builder()
 			.withCapabilities(capabilities)
@@ -79,10 +81,11 @@ describe('Performance Testing', () => {
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:hello) should return test name', async () => {
-		const output = await driver.executeScript('sauce:hello', {
-			name: capabilities.name,
+	it('(sauce:performance) should assert performance does not regress', async () => {
+		const output = await driver.executeScript('sauce:performance', {
+			name: title,
+			metrics: ['load'],
 		});
-		assert.ok(output.includes(capabilities.name), 'Test name is missing');
+		assert.equal(output, true);
 	});
 });

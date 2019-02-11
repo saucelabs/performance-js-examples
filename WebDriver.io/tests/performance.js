@@ -1,6 +1,7 @@
 const assert = require('assert');
 
-describe('Performance Demo Test', () => {
+describe('Performance Demo Test', function () { // eslint-disable-line func-names
+	const title = this.title;
 	before(() => {
 		browser.url('/');
 		const username = $('[data-test="username"]');
@@ -45,10 +46,11 @@ describe('Performance Demo Test', () => {
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:hello) should return test name', () => {
-		const output = browser.execute('sauce:hello', {
-			name: browser.config.capabilities.name,
+	it('(sauce:performance) should assert page load does not regress', () => {
+		const output = browser.execute('sauce:performance', {
+			name: title,
+			metrics: ['load'],
 		});
-		assert.ok(output.includes(browser.config.capabilities.name), 'Test name is missing');
+		assert.equal(output, true);
 	});
 });
