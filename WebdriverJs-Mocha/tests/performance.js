@@ -81,10 +81,18 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:performance) custom command should assert performance has not regressed', async () => {
+	it('(sauce:performance) custom command should assert pageLoad has not regressed', async () => {
 		const output = await driver.executeScript('sauce:performance', {
 			name: title,
 			metrics: ['load'],
+		});
+		assert.equal(output, true);
+	});
+
+	it('(sauce:performance) custom command should assert pageWeight has not regressed', async () => {
+		const output = await driver.executeScript('sauce:performance', {
+			name: title,
+			metrics: ['pageWeight'],
 		});
 		assert.equal(output, true);
 	});

@@ -45,10 +45,18 @@ Then('I check for sauce:performance logs', async function test() {
 	metrics.forEach(metric => assert.ok(metric in performanceLogs, `${metric} metric is missing`));
 });
 
-Then('I check the sauce:performance custom command', async function test() {
+Then('I assert that pageLoad is not degraded using sauce:performance custom command', async function test() {
 	const output = await this.browser.execute('sauce:performance', {
 		name: this.testName,
 		metrics: ['load'],
+	});
+	assert.equal(output, true);
+});
+
+Then('I assert that pageWeight is not degraded using sauce:performance custom command', async function test() {
+	const output = await this.browser.execute('sauce:performance', {
+		name: this.testName,
+		metrics: ['pageWeight'],
 	});
 	assert.equal(output, true);
 });

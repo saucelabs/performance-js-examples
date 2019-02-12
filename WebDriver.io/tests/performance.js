@@ -46,10 +46,18 @@ describe('Performance Demo Test', function () { // eslint-disable-line func-name
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:performance) custom command should assert performance has not regressed', () => {
+	it('(sauce:performance) custom command should assert pageload has not regressed', () => {
 		const output = browser.execute('sauce:performance', {
 			name: title,
 			metrics: ['load'],
+		});
+		assert.equal(output, true);
+	});
+
+	it('(sauce:performance) custom command should assert pageWeight has not regressed', () => {
+		const output = browser.execute('sauce:performance', {
+			name: title,
+			metrics: ['pageWeight'],
 		});
 		assert.equal(output, true);
 	});

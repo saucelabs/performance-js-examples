@@ -43,6 +43,12 @@ module.exports = {
 				metrics: ['load'],
 			}, ({ value }) => {
 				assert.equal(value, true);
+			})
+			.execute('sauce:performance', {
+				name: browser.currentTest.name,
+				metrics: ['pageWeight'],
+			}, ({ value }) => {
+				assert.equal(value, true);
 			});
 	},
 
