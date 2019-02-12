@@ -1,3 +1,4 @@
+/* eslint ignore */
 const assert = require('assert');
 const { Builder, By } = require('selenium-webdriver');
 const SauceLabs = require('saucelabs');
@@ -20,7 +21,8 @@ const capabilities = {
 let driver;
 let isTestPassed = true;
 
-describe('Performance Testing', () => {
+describe('Performance Testing', function () { // eslint-disable-line func-names
+	const { title } = this;
 	before(async () => {
 		driver = await new Builder()
 			.withCapabilities(capabilities)
@@ -63,7 +65,7 @@ describe('Performance Testing', () => {
 		assert.ok('domLoading' in timing, 'domLoading is missing');
 	});
 
-	it('(sauce:performance) should check speedIndex', async () => {
+	it('logs (sauce:performance) should check speedIndex', async () => {
 		const metrics = [
 			'load',
 			'speedIndex',
@@ -79,10 +81,19 @@ describe('Performance Testing', () => {
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:hello) should return test name', async () => {
-		const output = await driver.executeScript('sauce:hello', {
-			name: capabilities.name,
+	it('(sauce:performance) custom command should assert pageLoad has not regressed', async () => {
+		const output = await driver.executeScript('sauce:performance', {
+			name: title,
+			metrics: ['load'],
 		});
-		assert.ok(output.includes(capabilities.name), 'Test name is missing');
+		assert.equal(output, true);
+	});
+
+	it('(sauce:performance) custom command should assert pageWeight has not regressed', async () => {
+		const output = await driver.executeScript('sauce:performance', {
+			name: title,
+			metrics: ['pageWeight'],
+		});
+		assert.equal(output, true);
 	});
 });

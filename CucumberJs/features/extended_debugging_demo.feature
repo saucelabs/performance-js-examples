@@ -7,4 +7,5 @@ Feature: Is Performance captured?
         Then I check for sauce:metrics logs
         Then I check for sauce:timing logs
         Then I check for sauce:performance logs
-        Then I check for sauce:hello custom commands
+        Then I assert that pageLoad is not degraded using sauce:performance custom command
+        Then I assert that pageWeight is not degraded using sauce:performance custom command

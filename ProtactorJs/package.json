@@ -15,9 +15,9 @@
   },
   "eslintConfig": {
     "globals": {
-        "browser": true,
-        "element": true,
-        "by": true
+      "browser": true,
+      "element": true,
+      "by": true
     }
   }
 }

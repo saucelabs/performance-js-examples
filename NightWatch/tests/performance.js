@@ -38,10 +38,17 @@ module.exports = {
 				];
 				metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 			})
-			.execute('sauce:hello', {
+			.execute('sauce:performance', {
 				name: browser.currentTest.name,
+				metrics: ['load'],
 			}, ({ value }) => {
-				assert.ok(value.includes(browser.currentTest.name), 'Test name is missing');
+				assert.equal(value, true);
+			})
+			.execute('sauce:performance', {
+				name: browser.currentTest.name,
+				metrics: ['pageWeight'],
+			}, ({ value }) => {
+				assert.equal(value, true);
 			});
 	},
 

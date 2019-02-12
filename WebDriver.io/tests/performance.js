@@ -1,6 +1,7 @@
 const assert = require('assert');
 
-describe('Performance Demo Test', () => {
+describe('Performance Demo Test', function () { // eslint-disable-line func-names
+	const title = this.title;
 	before(() => {
 		browser.url('/');
 		const username = $('[data-test="username"]');
@@ -29,7 +30,7 @@ describe('Performance Demo Test', () => {
 		assert.ok('domLoading' in timing, 'domLoading is missing');
 	});
 
-	it('(sauce:performance) should check speedIndex', () => {
+	it('logs (sauce:performance) should check speedIndex', () => {
 		const metrics = [
 			'load',
 			'speedIndex',
@@ -45,10 +46,19 @@ describe('Performance Demo Test', () => {
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
-	it('(sauce:hello) should return test name', () => {
-		const output = browser.execute('sauce:hello', {
-			name: browser.config.capabilities.name,
+	it('(sauce:performance) custom command should assert pageload has not regressed', () => {
+		const output = browser.execute('sauce:performance', {
+			name: title,
+			metrics: ['load'],
 		});
-		assert.ok(output.includes(browser.config.capabilities.name), 'Test name is missing');
+		assert.equal(output, true);
+	});
+
+	it('(sauce:performance) custom command should assert pageWeight has not regressed', () => {
+		const output = browser.execute('sauce:performance', {
+			name: title,
+			metrics: ['pageWeight'],
+		});
+		assert.equal(output, true);
 	});
 });
