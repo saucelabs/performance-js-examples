@@ -1,7 +1,7 @@
 const assert = require('assert');
 
 describe('Performance Demo Test', function () { // eslint-disable-line func-names
-	const title = this.title;
+	const { title } = this;
 	before(() => {
 		browser.url('/');
 		const username = $('[data-test="username"]');
@@ -31,19 +31,8 @@ describe('Performance Demo Test', function () { // eslint-disable-line func-name
 	});
 
 	it('logs (sauce:performance) should check speedIndex', () => {
-		const metrics = [
-			'load',
-			'speedIndex',
-			'pageWeight',
-			'pageWeightEncoded',
-			'timeToFirstByte',
-			'timeToFirstInteractive',
-			'firstContentfulPaint',
-			'perceptualSpeedIndex',
-			'domContentLoaded',
-		];
 		const performance = browser.getLogs('sauce:performance');
-		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
+		assert.ok(performance.speedIndex < 15);
 	});
 
 	it('(sauce:performance) custom command should assert pageload has not regressed', () => {
@@ -51,7 +40,7 @@ describe('Performance Demo Test', function () { // eslint-disable-line func-name
 			name: title,
 			metrics: ['load'],
 		});
-		assert.equal(output, true);
+		assert.equal(output.result, 'pass', output.reason);
 	});
 
 	it('(sauce:performance) custom command should assert pageWeight has not regressed', () => {
@@ -59,6 +48,6 @@ describe('Performance Demo Test', function () { // eslint-disable-line func-name
 			name: title,
 			metrics: ['pageWeight'],
 		});
-		assert.equal(output, true);
+		assert.equal(output.result, 'pass', output.reason);
 	});
 });

@@ -16,13 +16,12 @@ const capabilities = {
 	version: '70.0',
 	browserName: 'chrome',
 	extendedDebugging: true,
-	name: 'Performance Testing',
+	name: 'WebdriverJS-Mocha Performance Testing Sample',
 };
 let driver;
 let isTestPassed = true;
 
-describe('WebdriverJS-Mocha Performance Testing Sample', function () { // eslint-disable-line func-names
-	const { title } = this;
+describe('WebdriverJS-Mocha Performance Testing Sample', () => { // eslint-disable-line func-names
 	before(async () => {
 		driver = await new Builder()
 			.withCapabilities(capabilities)
@@ -83,7 +82,7 @@ describe('WebdriverJS-Mocha Performance Testing Sample', function () { // eslint
 
 	it('(sauce:performance) custom command should assert pageLoad has not regressed', async () => {
 		const output = await driver.executeScript('sauce:performance', {
-			name: title,
+			name: capabilities.name,
 			metrics: ['load'],
 		});
 		assert.equal(output.result, 'pass', output.reason);
@@ -91,7 +90,7 @@ describe('WebdriverJS-Mocha Performance Testing Sample', function () { // eslint
 
 	it('(sauce:performance) custom command should assert pageWeight has not regressed', async () => {
 		const output = await driver.executeScript('sauce:performance', {
-			name: title,
+			name: capabilities.name,
 			metrics: ['pageWeight'],
 		});
 		assert.equal(output.result, 'pass', output.reason);
