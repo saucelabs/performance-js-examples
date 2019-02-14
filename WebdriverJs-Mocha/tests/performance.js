@@ -86,7 +86,7 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 			name: title,
 			metrics: ['load'],
 		});
-		assert.equal(output.result, 'pass');
+		assert.equal(output.result, 'pass', output.reason);
 	});
 
 	it('(sauce:performance) custom command should assert pageWeight has not regressed', async () => {
@@ -94,6 +94,6 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 			name: title,
 			metrics: ['pageWeight'],
 		});
-		assert.equal(output.result, 'pass');
+		assert.equal(output.result, 'pass', output.reason);
 	});
 });

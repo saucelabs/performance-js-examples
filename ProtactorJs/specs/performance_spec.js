@@ -49,6 +49,6 @@ describe('Performance Testing', () => {
 			name: config.capabilities.name,
 			metrics: ['load'],
 		});
-		assert.equal(output.result, 'pass');
+		assert.equal(output.result, 'pass', output.reason);
 	});
 });

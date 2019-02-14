@@ -42,13 +42,13 @@ module.exports = {
 				name: browser.currentTest.name,
 				metrics: ['load'],
 			}, ({ value }) => {
-				assert.equal(value.result, 'pass');
+				assert.equal(value.result, 'pass', value.reason);
 			})
 			.execute('sauce:performance', {
 				name: browser.currentTest.name,
 				metrics: ['pageWeight'],
 			}, ({ value }) => {
-				assert.equal(value.result, 'pass');
+				assert.equal(value.result, 'pass', value.reason);
 			});
 	},
 
