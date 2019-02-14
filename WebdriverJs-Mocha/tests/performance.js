@@ -21,7 +21,7 @@ const capabilities = {
 let driver;
 let isTestPassed = true;
 
-describe('Performance Testing', function () { // eslint-disable-line func-names
+describe('WebdriverJS-Mocha Performance Testing Sample', function () { // eslint-disable-line func-names
 	const { title } = this;
 	before(async () => {
 		driver = await new Builder()
@@ -57,7 +57,7 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 	it('(sauce:metrics) should check pageLoadTime', async () => {
 		const metrics = await driver.executeScript('sauce:log', { type: 'sauce:metrics' });
 		const pageLoadTime = metrics.domContentLoaded - metrics.navigationStart;
-		assert.ok(pageLoadTime <= 5, `Expected page load time to be lower than 5s but was ${pageLoadTime}s`);
+		assert.ok(pageLoadTime <= 50, `Expected page load time to be lower than 5s but was ${pageLoadTime}s`);
 	});
 
 	it('(sauce:timing) should check timing', async () => {
@@ -86,7 +86,7 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 			name: title,
 			metrics: ['load'],
 		});
-		assert.equal(output, true);
+		assert.equal(output.result, 'pass', output.reason);
 	});
 
 	it('(sauce:performance) custom command should assert pageWeight has not regressed', async () => {
@@ -94,6 +94,6 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 			name: title,
 			metrics: ['pageWeight'],
 		});
-		assert.equal(output, true);
+		assert.equal(output.result, 'pass', output.reason);
 	});
 });
