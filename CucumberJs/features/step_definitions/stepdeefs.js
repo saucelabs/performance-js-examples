@@ -50,7 +50,7 @@ Then('I assert that pageLoad is not degraded using sauce:performance custom comm
 		name: this.testName,
 		metrics: ['load'],
 	});
-	assert.equal(output, true);
+	assert.equal(output.result, true, output.reason);
 });
 
 Then('I assert that pageWeight is not degraded using sauce:performance custom command', async function test() {
@@ -58,5 +58,5 @@ Then('I assert that pageWeight is not degraded using sauce:performance custom co
 		name: this.testName,
 		metrics: ['pageWeight'],
 	});
-	assert.equal(output, true);
+	assert.equal(output.result, true, output.reason);
 });
