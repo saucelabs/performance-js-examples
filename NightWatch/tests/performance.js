@@ -13,17 +13,6 @@ module.exports = {
 			.click('.login-button')
 			.url('https://www.saucedemo.com/inventory.html')
 			.waitForElementVisible('body', 1000)
-			.getLog('sauce:network', (network) => {
-				const isRequestExists = network.some(req => req.url.includes('main.js'));
-				assert.strictEqual(isRequestExists, true);
-			})
-			.getLog('sauce:metrics', (metrics) => {
-				const pageLoadTime = metrics.domContentLoaded - metrics.navigationStart;
-				assert.ok(pageLoadTime <= 5, `Expected page load time to be lower than 5s but was ${pageLoadTime}s`);
-			})
-			.getLog('sauce:timing', (timing) => {
-				assert.ok('domLoading' in timing, 'domLoading is missing');
-			})
 			.getLog('sauce:performance', (performance) => {
 				const metrics = [
 					'load',
@@ -46,7 +35,7 @@ module.exports = {
 			})
 			.execute('sauce:performance', {
 				name: browser.currentTest.name,
-				metrics: ['pageWeight'],
+				metrics: ['speedIndex'],
 			}, ({ value }) => {
 				assert.equal(value.result, 'pass', value.reason);
 			});

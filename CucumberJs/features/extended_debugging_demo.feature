@@ -3,9 +3,6 @@ Feature: Is Performance captured?
 
     Scenario: Extended debugging cucumber-js demo
         Given I am testing extended debugging on webpage
-        Then I check for sauce:network logs
-        Then I check for sauce:metrics logs
-        Then I check for sauce:timing logs
         Then I check for sauce:performance logs
         Then I assert that pageLoad is not degraded using sauce:performance custom command
-        Then I assert that pageWeight is not degraded using sauce:performance custom command
+        Then I assert that speedIndex is not degraded using sauce:performance custom command
