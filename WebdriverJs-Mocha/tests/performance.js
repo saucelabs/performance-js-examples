@@ -16,15 +16,13 @@ const capabilities = {
 	version: '70.0',
 	browserName: 'chrome',
 	extendedDebugging: true,
-	crmuxdriverVersion: 'experimental',
+	name: 'Performance Testing',
 };
 
 let driver;
 let isTestPassed = true;
 
 describe('Performance Testing', () => { // eslint-disable-line func-names
-	const { title } = this;
-
 	before(async () => {
 		driver = await new Builder()
 			.withCapabilities(capabilities)
@@ -44,7 +42,6 @@ describe('Performance Testing', () => { // eslint-disable-line func-names
 	after((done) => {
 		driver.quit();
 		saucelabs.updateJob(driver.sessionID.id_, { // eslint-disable-line
-			name: 'Performance Testing 218',
 			passed: isTestPassed,
 		}, done);
 	});
@@ -64,6 +61,7 @@ describe('Performance Testing', () => { // eslint-disable-line func-names
 		const performance = await driver.executeScript('sauce:log', { type: 'sauce:performance' });
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
+
 	function timeout(ms) {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
@@ -73,7 +71,8 @@ describe('Performance Testing', () => { // eslint-disable-line func-names
 		driver.sleep(20000);
 
 		const output = await driver.executeScript('sauce:performance', {
-			name: title,
+			name: capabilities.name,
+			metrics: ['load'],
 		});
 		assert.equal(output.result, 'pass', output.reason);
 	});
@@ -81,9 +80,8 @@ describe('Performance Testing', () => { // eslint-disable-line func-names
 	it('(sauce:performance) custom command should assert speedIndex has not regressed', async () => {
 		await timeout(3000);
 		driver.sleep(20000);
-
-		const output = driver.execute('sauce:performance', {
-			name: title,
+		const output = await driver.executeScript('sauce:performance', {
+			name: capabilities.name,
 			metrics: ['speedIndex'],
 		});
 		assert.equal(output.result, 'pass', output.reason);

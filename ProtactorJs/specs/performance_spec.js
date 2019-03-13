@@ -2,7 +2,7 @@ const assert = require('assert');
 const { config } = require('../conf.js');
 
 describe('Performance Testing', () => {
-	before(() => {
+	beforeAll(() => {
 		browser.waitForAngularEnabled(false);
 		browser.get('/');
 		element(by.css('[data-test="username"]')).sendKeys(process.env.PERF_USERNAME || 'standard_user');

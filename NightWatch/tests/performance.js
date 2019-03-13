@@ -1,9 +1,6 @@
 const assert = require('assert');
 
 module.exports = {
-
-	'@tags': ['Performance Demo Test'],
-
 	'Performance Testing': (browser) => {
 		browser
 			.url('https://www.saucedemo.com/')
