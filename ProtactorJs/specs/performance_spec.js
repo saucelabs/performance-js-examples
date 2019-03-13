@@ -11,23 +11,6 @@ describe('Performance Testing', () => {
 		browser.get('/inventory.html');
 	});
 
-	it('(sauce:network) should make a request for main.js', async () => {
-		const network = await browser.executeScript('sauce:log', { type: 'sauce:network' });
-		const isRequestExists = network.some(req => req.url.includes('main.js'));
-		assert.strictEqual(isRequestExists, true);
-	});
-
-	it('(sauce:metrics) should check pageLoadTime', async () => {
-		const metrics = await browser.executeScript('sauce:log', { type: 'sauce:metrics' });
-		const pageLoadTime = metrics.domContentLoaded - metrics.navigationStart;
-		assert.ok(pageLoadTime <= 5, `Expected page load time to be lower than 5s but was ${pageLoadTime}s`);
-	});
-
-	it('(sauce:timing) should check timing', async () => {
-		const timing = await browser.executeScript('sauce:log', { type: 'sauce:timing' });
-		assert.ok('domLoading' in timing, 'domLoading is missing');
-	});
-
 	it('log (sauce:performance) should check speedIndex', async () => {
 		const metrics = [
 			'load',
@@ -48,6 +31,14 @@ describe('Performance Testing', () => {
 		const output = await browser.executeScript('sauce:performance', {
 			name: config.capabilities.name,
 			metrics: ['load'],
+		});
+		assert.equal(output.result, 'pass', output.reason);
+	});
+
+	it('(sauce:performance) custom command should assert speedIndex has not regressed', async () => {
+		const output = await browser.executeScript('sauce:performance', {
+			name: config.capabilities.name,
+			metrics: ['speedIndex'],
 		});
 		assert.equal(output.result, 'pass', output.reason);
 	});

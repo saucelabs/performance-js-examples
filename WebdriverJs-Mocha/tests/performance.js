@@ -18,11 +18,11 @@ const capabilities = {
 	extendedDebugging: true,
 	name: 'Performance Testing',
 };
+
 let driver;
 let isTestPassed = true;
 
-describe('Performance Testing', function () { // eslint-disable-line func-names
-	const { title } = this;
+describe('Performance Testing', () => { // eslint-disable-line func-names
 	before(async () => {
 		driver = await new Builder()
 			.withCapabilities(capabilities)
@@ -33,7 +33,6 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 		await driver.findElement(By.css('[data-test="username"]')).sendKeys(process.env.PERF_USERNAME || 'standard_user');
 		await driver.findElement(By.css('[data-test="password"]')).sendKeys('secret_sauce');
 		await driver.findElement(By.css('.login-button')).click();
-		await driver.get('https://www.saucedemo.com/inventory.html');
 	});
 
 	afterEach(function hook() {
@@ -43,26 +42,8 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 	after((done) => {
 		driver.quit();
 		saucelabs.updateJob(driver.sessionID.id_, { // eslint-disable-line
-			name: capabilities.name,
 			passed: isTestPassed,
 		}, done);
-	});
-
-	it('(sauce:network) should make a request for main.js', async () => {
-		const network = await driver.executeScript('sauce:log', { type: 'sauce:network' });
-		const isRequestExists = network.some(req => req.url.includes('main.js'));
-		assert.strictEqual(isRequestExists, true);
-	});
-
-	it('(sauce:metrics) should check pageLoadTime', async () => {
-		const metrics = await driver.executeScript('sauce:log', { type: 'sauce:metrics' });
-		const pageLoadTime = metrics.domContentLoaded - metrics.navigationStart;
-		assert.ok(pageLoadTime <= 5, `Expected page load time to be lower than 5s but was ${pageLoadTime}s`);
-	});
-
-	it('(sauce:timing) should check timing', async () => {
-		const timing = await driver.executeScript('sauce:log', { type: 'sauce:timing' });
-		assert.ok('domLoading' in timing, 'domLoading is missing');
 	});
 
 	it('logs (sauce:performance) should check speedIndex', async () => {
@@ -81,18 +62,27 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 		metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`));
 	});
 
+	function timeout(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
+
 	it('(sauce:performance) custom command should assert pageLoad has not regressed', async () => {
+		await timeout(3000);
+		driver.sleep(20000);
+
 		const output = await driver.executeScript('sauce:performance', {
-			name: title,
+			name: capabilities.name,
 			metrics: ['load'],
 		});
 		assert.equal(output.result, 'pass', output.reason);
 	});
 
-	it('(sauce:performance) custom command should assert pageWeight has not regressed', async () => {
+	it('(sauce:performance) custom command should assert speedIndex has not regressed', async () => {
+		await timeout(3000);
+		driver.sleep(20000);
 		const output = await driver.executeScript('sauce:performance', {
-			name: title,
-			metrics: ['pageWeight'],
+			name: capabilities.name,
+			metrics: ['speedIndex'],
 		});
 		assert.equal(output.result, 'pass', output.reason);
 	});

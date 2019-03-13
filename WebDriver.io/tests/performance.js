@@ -1,7 +1,7 @@
 const assert = require('assert');
 
-describe('Performance Demo Test', function () { // eslint-disable-line func-names
-	const title = this.title;
+describe('Performance Testing', function () { // eslint-disable-line func-names
+	const { title } = this;
 	before(() => {
 		browser.url('/');
 		const username = $('[data-test="username"]');
@@ -11,23 +11,6 @@ describe('Performance Demo Test', function () { // eslint-disable-line func-name
 		const loginButton = $('.login-button');
 		loginButton.click();
 		browser.url('/inventory.html');
-	});
-
-	it('(sauce:network) should make a request for main.js', () => {
-		const network = browser.getLogs('sauce:network');
-		const isRequestExists = network.some(req => req.url.includes('main.js'));
-		assert.strictEqual(isRequestExists, true);
-	});
-
-	it('(sauce:metrics) pageLoadTime should be less than 5s', () => {
-		const metrics = browser.getLogs('sauce:metrics');
-		const pageLoadTime = metrics.domContentLoaded - metrics.navigationStart;
-		assert.ok(pageLoadTime <= 5, `Expected page load time to be lower than 5s but was ${pageLoadTime}s`);
-	});
-
-	it('(sauce:timing) should check timing', () => {
-		const timing = browser.getLogs('sauce:timing');
-		assert.ok('domLoading' in timing, 'domLoading is missing');
 	});
 
 	it('logs (sauce:performance) should check speedIndex', () => {
@@ -54,10 +37,10 @@ describe('Performance Demo Test', function () { // eslint-disable-line func-name
 		assert.equal(output.result, 'pass');
 	});
 
-	it('(sauce:performance) custom command should assert pageWeight has not regressed', () => {
+	it('(sauce:performance) custom command should assert speedIndex has not regressed', () => {
 		const output = browser.execute('sauce:performance', {
 			name: title,
-			metrics: ['pageWeight'],
+			metrics: ['speedIndex'],
 		});
 		assert.equal(output.result, 'pass');
 	});
