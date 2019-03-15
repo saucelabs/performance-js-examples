@@ -29,22 +29,18 @@ module.exports = {
 				metrics: ['load'],
 			}, ({ value }) => {
 				const { reason, result, details } = value;
-				if (result !== 'pass') {
-					assert.equal(details.load.actual < 5000, true, reason);
-					return;
-				}
-				assert(result, 'pass');
+				return result !== 'pass'
+					? assert.equal(details.load.actual < 5000, true, reason)
+					: assert(result, 'pass');
 			})
 			.execute('sauce:performance', {
 				name: browser.currentTest.name,
 				metrics: ['timeToFirstInteractive'],
 			}, ({ value }) => {
 				const { reason, result, details } = value;
-				if (result !== 'pass') {
-					assert.equal(details.timeToFirstInteractive.actual < 5000, true, reason);
-					return;
-				}
-				assert(result, 'pass');
+				return result !== 'pass'
+					? assert.equal(details.timeToFirstInteractive.actual < 5000, true, reason)
+					: assert(result, 'pass');
 			});
 	},
 

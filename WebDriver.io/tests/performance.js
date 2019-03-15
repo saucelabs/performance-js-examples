@@ -36,12 +36,9 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 			metrics: [metric],
 		});
 		const { reason, result, details } = output;
-		// it the test returns a failure, make sure the load time is not over 5s
-		if (result !== 'pass') {
-			assert.equal(details[metric.actual] < 5000, true, reason);
-			return;
-		}
-		assert(result, 'pass');
+		return result !== 'pass'
+			? assert.equal(details[metric].actual < 5000, true, reason)
+			: assert(result, 'pass');
 	});
 
 	it('(sauce:performance) custom command should assert timeToFirstInteractive has not regressed', () => {
@@ -51,11 +48,8 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 			metrics: [metric],
 		});
 		const { reason, result, details } = output;
-		// it the test returns a failure, make sure the timeToFirstInteractive is not over 5s
-		if (result !== 'pass') {
-			assert.equal(details[metric].actual < 5000, true, reason);
-			return;
-		}
-		assert(result, 'pass');
+		return result !== 'pass'
+			? assert.equal(details[metric].actual < 5000, true, reason)
+			: assert(result, 'pass');
 	});
 });
