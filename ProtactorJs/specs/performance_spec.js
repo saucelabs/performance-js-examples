@@ -7,7 +7,7 @@ describe('Performance Testing', () => {
 		browser.get('/');
 		element(by.css('[data-test="username"]')).sendKeys(process.env.PERF_USERNAME || 'standard_user');
 		element(by.css('[data-test="password"]')).sendKeys('secret_sauce');
-		element(by.css('.login-button')).click();
+		element(by.css('.btn_action')).click();
 		browser.get('/inventory.html');
 	});
 
@@ -35,10 +35,10 @@ describe('Performance Testing', () => {
 		assert.equal(output.result, 'pass', output.reason);
 	});
 
-	it('(sauce:performance) custom command should assert speedIndex has not regressed', async () => {
+	it('(sauce:performance) custom command should assert timeToFirstInteractive has not regressed', async () => {
 		const output = await browser.executeScript('sauce:performance', {
 			name: config.capabilities.name,
-			metrics: ['speedIndex'],
+			metrics: ['timeToFirstInteractive'],
 		});
 		assert.equal(output.result, 'pass', output.reason);
 	});

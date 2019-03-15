@@ -32,7 +32,7 @@ describe('Performance Testing', () => { // eslint-disable-line func-names
 		await driver.get('https://www.saucedemo.com/');
 		await driver.findElement(By.css('[data-test="username"]')).sendKeys(process.env.PERF_USERNAME || 'standard_user');
 		await driver.findElement(By.css('[data-test="password"]')).sendKeys('secret_sauce');
-		await driver.findElement(By.css('.login-button')).click();
+		await driver.findElement(By.css('.btn_action')).click();
 	});
 
 	afterEach(function hook() {
@@ -77,12 +77,12 @@ describe('Performance Testing', () => { // eslint-disable-line func-names
 		assert.equal(output.result, 'pass', output.reason);
 	});
 
-	it('(sauce:performance) custom command should assert speedIndex has not regressed', async () => {
+	it('(sauce:performance) custom command should assert timeToFirstInteractive has not regressed', async () => {
 		await timeout(3000);
 		driver.sleep(20000);
 		const output = await driver.executeScript('sauce:performance', {
 			name: capabilities.name,
-			metrics: ['speedIndex'],
+			metrics: ['timeToFirstInteractive'],
 		});
 		assert.equal(output.result, 'pass', output.reason);
 	});

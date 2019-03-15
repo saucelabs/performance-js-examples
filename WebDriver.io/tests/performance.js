@@ -8,7 +8,7 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 		username.setValue(process.env.PERF_USERNAME || 'standard_user');
 		const password = $('[data-test="password"]');
 		password.setValue('secret_sauce');
-		const loginButton = $('.login-button');
+		const loginButton = $('.btn_action');
 		loginButton.click();
 		browser.url('/inventory.html');
 	});
@@ -37,10 +37,10 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 		assert.equal(output.result, 'pass');
 	});
 
-	it('(sauce:performance) custom command should assert speedIndex has not regressed', () => {
+	it('(sauce:performance) custom command should assert timeToFirstInteractive has not regressed', () => {
 		const output = browser.execute('sauce:performance', {
 			name: title,
-			metrics: ['speedIndex'],
+			metrics: ['timeToFirstInteractive'],
 		});
 		assert.equal(output.result, 'pass');
 	});

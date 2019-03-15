@@ -7,7 +7,7 @@ Given('I am testing extended debugging on webpage', async function test() {
 	await username.setValue(process.env.PERF_USERNAME || 'standard_user');
 	const password = await this.browser.$('[data-test="password"]');
 	await password.setValue('secret_sauce');
-	const login = await this.browser.$('.login-button');
+	const login = await this.browser.$('.btn_action');
 	await login.click();
 	await this.browser.url('https://www.saucedemo.com/inventory.html');
 });
@@ -36,10 +36,10 @@ Then('I assert that pageLoad is not degraded using sauce:performance custom comm
 	assert.equal(output.result, 'pass', output.reason);
 });
 
-Then('I assert that speedIndex is not degraded using sauce:performance custom command', async function test() {
+Then('I assert that timeToFirstInteractive is not degraded using sauce:performance custom command', async function test() {
 	const output = await this.browser.execute('sauce:performance', {
 		name: this.testName,
-		metrics: ['speedIndex'],
+		metrics: ['timeToFirstInteractive'],
 	});
 	assert.equal(output.result, 'pass', output.reason);
 });
