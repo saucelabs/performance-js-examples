@@ -28,18 +28,32 @@ describe('Performance Testing', () => {
 	});
 
 	it('(sauce:performance) custom command should assert performance has not regressed', async () => {
+		const metric = 'load';
 		const output = await browser.executeScript('sauce:performance', {
 			name: config.capabilities.name,
-			metrics: ['load'],
+			metrics: [metric],
 		});
-		assert.equal(output.result, 'pass', output.reason);
+		const { reason, result, details } = output;
+		// it the test returns a failure, make sure the timeToFirstInteractive is not over 5s
+		if (result !== 'pass') {
+			assert.equal(details[metric].actual < 5000, true, reason);
+			return;
+		}
+		assert(result, 'pass');
 	});
 
 	it('(sauce:performance) custom command should assert timeToFirstInteractive has not regressed', async () => {
+		const metric = ['timeToFirstInteractive'];
 		const output = await browser.executeScript('sauce:performance', {
 			name: config.capabilities.name,
-			metrics: ['timeToFirstInteractive'],
+			metrics: [metric],
 		});
-		assert.equal(output.result, 'pass', output.reason);
+		const { reason, result, details } = output;
+		// it the test returns a failure, make sure the timeToFirstInteractive is not over 5s
+		if (result !== 'pass') {
+			assert.equal(details[metric].actual < 5000, true, reason);
+			return;
+		}
+		assert(result, 'pass');
 	});
 });

@@ -29,17 +29,24 @@ Then('I check for sauce:performance logs', async function test() {
 });
 
 Then('I assert that pageLoad is not degraded using sauce:performance custom command', async function test() {
+	const metric = 'load';
 	const output = await this.browser.execute('sauce:performance', {
 		name: this.testName,
-		metrics: ['load'],
+		metrics: [metric],
 	});
 	assert.equal(output.result, 'pass', output.reason);
 });
 
 Then('I assert that timeToFirstInteractive is not degraded using sauce:performance custom command', async function test() {
+	const metric = 'timeToFirstInteractive';
 	const output = await this.browser.execute('sauce:performance', {
 		name: this.testName,
-		metrics: ['timeToFirstInteractive'],
+		metrics: [metric],
 	});
-	assert.equal(output.result, 'pass', output.reason);
+	const { reason, result, details } = output;
+	if (result !== 'pass') {
+		assert.equal(details[metric].actual < 5000, true, reason);
+		return;
+	}
+	assert(result, 'pass');
 });

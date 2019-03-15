@@ -28,13 +28,23 @@ module.exports = {
 				name: browser.currentTest.name,
 				metrics: ['load'],
 			}, ({ value }) => {
-				assert.equal(value.result, 'pass', value.reason);
+				const { reason, result, details } = value;
+				if (result !== 'pass') {
+					assert.equal(details.load.actual < 5000, true, reason);
+					return;
+				}
+				assert(result, 'pass');
 			})
 			.execute('sauce:performance', {
 				name: browser.currentTest.name,
 				metrics: ['timeToFirstInteractive'],
 			}, ({ value }) => {
-				assert.equal(value.result, 'pass', value.reason);
+				const { reason, result, details } = value;
+				if (result !== 'pass') {
+					assert.equal(details.timeToFirstInteractive.actual < 5000, true, reason);
+					return;
+				}
+				assert(result, 'pass');
 			});
 	},
 
