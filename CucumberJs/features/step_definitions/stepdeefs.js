@@ -7,7 +7,7 @@ Given('I am testing extended debugging on webpage', async function test() {
 	await username.setValue(process.env.PERF_USERNAME || 'standard_user');
 	const password = await this.browser.$('[data-test="password"]');
 	await password.setValue('secret_sauce');
-	const login = await this.browser.$('.login-button');
+	const login = await this.browser.$('.btn_action');
 	await login.click();
 	await this.browser.url('https://www.saucedemo.com/inventory.html');
 });
@@ -29,17 +29,32 @@ Then('I check for sauce:performance logs', async function test() {
 });
 
 Then('I assert that pageLoad is not degraded using sauce:performance custom command', async function test() {
+	const metric = 'load';
 	const output = await this.browser.execute('sauce:performance', {
 		name: this.testName,
-		metrics: ['load'],
+		metrics: [metric],
 	});
-	assert.equal(output.result, 'pass', output.reason);
+	const { reason, result, details } = output;
+	/* The custom command will return 'pass' if the test falls within the predicted baseline
+	 * or 'fail'  if the performance metric falls outside the predicted baseline.
+	 * customers can decide how strict they want to be in failing tests by setting thier own
+	 * failure points.
+	 * assert(details[metric].actual < 5000, true, reason);
+	 */
+	return result !== 'pass'
+		? assert.equal(details[metric].actual < 5000, true, reason)
+		: assert(result, 'pass');
 });
 
-Then('I assert that speedIndex is not degraded using sauce:performance custom command', async function test() {
+Then('I assert that timeToFirstInteractive is not degraded using sauce:performance custom command', async function test() {
+	const metric = 'timeToFirstInteractive';
 	const output = await this.browser.execute('sauce:performance', {
 		name: this.testName,
-		metrics: ['speedIndex'],
+		metrics: [metric],
 	});
-	assert.equal(output.result, 'pass', output.reason);
+	const { reason, result, details } = output;
+
+	return result !== 'pass'
+		? assert.equal(details[metric].actual < 5000, true, reason)
+		: assert(result, 'pass');
 });

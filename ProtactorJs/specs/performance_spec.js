@@ -7,7 +7,7 @@ describe('Performance Testing', () => {
 		browser.get('/');
 		element(by.css('[data-test="username"]')).sendKeys(process.env.PERF_USERNAME || 'standard_user');
 		element(by.css('[data-test="password"]')).sendKeys('secret_sauce');
-		element(by.css('.login-button')).click();
+		element(by.css('.btn_action')).click();
 		browser.get('/inventory.html');
 	});
 
@@ -28,18 +28,32 @@ describe('Performance Testing', () => {
 	});
 
 	it('(sauce:performance) custom command should assert performance has not regressed', async () => {
+		const metric = 'load';
 		const output = await browser.executeScript('sauce:performance', {
 			name: config.capabilities.name,
-			metrics: ['load'],
+			metrics: [metric],
 		});
-		assert.equal(output.result, 'pass', output.reason);
+		const { reason, result, details } = output;
+		/* The custom command will return 'pass' if the test falls within the predicted baseline
+		 * or 'fail'  if the performance metric falls outside the predicted baseline.
+		 * customers can decide how strict they want to be in failing tests by setting thier own
+		 * failure points.
+		 * assert(details[metric].actual < 5000, true, reason);
+	 	 */
+		return result !== 'pass'
+			? assert.equal(details[metric].actual < 5000, true, reason)
+			: assert(result, 'pass');
 	});
 
-	it('(sauce:performance) custom command should assert speedIndex has not regressed', async () => {
+	it('(sauce:performance) custom command should assert timeToFirstInteractive has not regressed', async () => {
+		const metric = ['timeToFirstInteractive'];
 		const output = await browser.executeScript('sauce:performance', {
 			name: config.capabilities.name,
-			metrics: ['speedIndex'],
+			metrics: [metric],
 		});
-		assert.equal(output.result, 'pass', output.reason);
+		const { reason, result, details } = output;
+		return result !== 'pass'
+			? assert.equal(details[metric].actual < 5000, true, reason)
+			: assert(result, 'pass');
 	});
 });
