@@ -35,6 +35,12 @@ Then('I assert that pageLoad is not degraded using sauce:performance custom comm
 		metrics: [metric],
 	});
 	const { reason, result, details } = output;
+	/* The custom command will return 'pass' if the test falls within the predicted baseline
+	 * or 'fail'  if the performance metric falls outside the predicted baseline.
+	 * customers can decide how strict they want to be in failing tests by setting thier own
+	 * failure points.
+	 * assert(details[metric].actual < 5000, true, reason);
+	 */
 	return result !== 'pass'
 		? assert.equal(details[metric].actual < 5000, true, reason)
 		: assert(result, 'pass');
@@ -47,6 +53,7 @@ Then('I assert that timeToFirstInteractive is not degraded using sauce:performan
 		metrics: [metric],
 	});
 	const { reason, result, details } = output;
+
 	return result !== 'pass'
 		? assert.equal(details[metric].actual < 5000, true, reason)
 		: assert(result, 'pass');

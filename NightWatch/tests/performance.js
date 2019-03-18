@@ -29,6 +29,12 @@ module.exports = {
 				metrics: ['load'],
 			}, ({ value }) => {
 				const { reason, result, details } = value;
+				/* The custom command will return 'pass' if the test falls within the predicted baseline
+ 				 * or 'fail'  if the performance metric falls outside the predicted baseline.
+ 				 * customers can decide how strict they want to be in failing tests by setting thier own
+ 				 * failure points.
+ 				 * assert(details[metric].actual < 5000, true, reason);
+  			 */
 				return result !== 'pass'
 					? assert.equal(details.load.actual < 5000, true, reason)
 					: assert(result, 'pass');

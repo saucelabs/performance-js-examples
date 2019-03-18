@@ -36,6 +36,12 @@ describe('Performance Testing', function () { // eslint-disable-line func-names
 			metrics: [metric],
 		});
 		const { reason, result, details } = output;
+		/* The custom command will return 'pass' if the test falls within the predicted baseline
+ 		 * or 'fail'  if the performance metric falls outside the predicted baseline.
+		 * customers can decide how strict they want to be in failing tests by setting thier own
+		 * failure points.
+		 * assert(details[metric].actual < 5000, true, reason);
+		 */
 		return result !== 'pass'
 			? assert.equal(details[metric].actual < 5000, true, reason)
 			: assert(result, 'pass');
