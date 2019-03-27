@@ -7,6 +7,7 @@ exports.config = {
 		version: '70.0',
 		browserName: 'chrome',
 		extendedDebugging: true,
+		capturePerformance: true,
 		name: 'Performance Testing',
 	},
 	baseUrl: 'https://www.saucedemo.com',
