@@ -16,6 +16,7 @@ const capabilities = {
 	version: '70.0',
 	browserName: 'chrome',
 	extendedDebugging: true,
+	capturePerformance: true,
 	name: 'Performance Testing',
 };
 
