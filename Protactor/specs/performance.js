@@ -1,18 +1,21 @@
 const assert = require('assert')
+const { config } = require('../conf.js')
 
 describe('Performance Testing', () => {
-    const { title } = this
+    beforeAll(() => {
+        browser.waitForAngularEnabled(false)
+        browser.get('/')
 
-    before(() => {
-        browser.url('https://www.saucedemo.com')
+        element(by.css('[data-test="username"]'))
+            .sendKeys(process.env.PERF_USERNAME || 'standard_user')
+        element(by.css('[data-test="password"]'))
+            .sendKeys('secret_sauce')
+        element(by.css('.btn_action')).click()
 
-        const username = process.env.PERF_USERNAME || 'standard_user'
-        $('[data-test="username"]').setValue(username)
-        $('[data-test="password"]').setValue('secret_sauce')
-        $('.btn_action').click()
+        browser.get('/inventory.html')
     })
 
-    it('logs (sauce:performance) should check if all metrics were captured', () => {
+    it('log (sauce:performance) should check speedIndex', async () => {
         const metrics = [
             'estimatedInputLatency',
             'timeToFirstByte',
@@ -27,7 +30,7 @@ describe('Performance Testing', () => {
             'load',
             'speedIndex',
         ]
-        const performance = browser.execute('sauce:log', { type: 'sauce:performance' })
+        const performance = await browser.executeScript('sauce:log', { type: 'sauce:performance' })
         metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`))
     })
 
@@ -37,11 +40,13 @@ describe('Performance Testing', () => {
      * customers can decide how strict they want to be in failing tests by setting thier own
      * failure points.
      */
-    it('(sauce:performance) custom command should assert pageload and speedIndex has not regressed', () => {
-        const output = browser.execute('sauce:performance', {
-            name: title,
-            metrics: ['speedIndex', 'load'],
+    it('(sauce:performance) custom command should assert pageload and speedIndex has not regressed', async () => {
+        await browser.sleep(5000)
+        const output = await browser.executeScript('sauce:performance', {
+            name: config.capabilities.name,
+            metrics: ['load', 'speedIndex'],
         })
+
         const { result, details } = output
         return assert.equal(
             result, 'pass',

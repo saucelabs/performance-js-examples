@@ -4,20 +4,22 @@
   "description": "Protactor Test Demo",
   "main": "",
   "scripts": {
-    "test": "./node_modules/.bin/protractor conf.js",
+    "test": "protractor conf.js",
     "regression:test": "PERF_USERNAME=performance_glitch_user npm test"
   },
   "devDependencies": {
     "https-proxy-agent": "latest"
   },
   "dependencies": {
-    "protractor": "^5.4.1"
+    "protractor": "^5.4.1",
+    "saucelabs": "^2.1.9"
   },
   "eslintConfig": {
     "globals": {
       "browser": true,
       "element": true,
-      "by": true
+      "by": true,
+      "beforeAll": true
     }
   }
 }

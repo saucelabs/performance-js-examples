@@ -17,16 +17,14 @@ This repository contains sample script of performance custom commands by using f
     ```
     $ brew install node
     ```
-    * Install Grunt Globally
-    ```
-    $ npm install -g grunt-cli
-    ```
+
 2. Sauce Credentials
     * In the terminal export your Sauce Labs Credentials as environmental variables:
     ```
     $ export SAUCE_USERNAME=<your Sauce Labs username>
 	$ export SAUCE_ACCESS_KEY=<your Sauce Labs access key>
     ```
+
 3. Project Dependencies
     * Choose any of above framework (as example let's use Webdriver.io)
     ```
@@ -43,7 +41,6 @@ This repository contains sample script of performance custom commands by using f
 ### Performance Regression Tests
 
 In demo app, we have `performance_glitch_user` user to test performance regression. By using this user PageLoad time will be increased by 5s and existing test case will be failed.
-	
 
 	$ npm run regression:test
 

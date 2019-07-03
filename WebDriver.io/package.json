@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/wdio wdio.conf.js",
+    "test": "wdio wdio.conf.js",
     "regression:test": "PERF_USERNAME=performance_glitch_user npm test"
   },
   "author": "",
