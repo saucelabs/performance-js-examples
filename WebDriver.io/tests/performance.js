@@ -1,6 +1,6 @@
 const assert = require('assert')
 
-describe('Performance Testing', function () { // eslint-disable-line func-names
+describe('Performance Testing', () => {
     const { title } = this
 
     before(() => {

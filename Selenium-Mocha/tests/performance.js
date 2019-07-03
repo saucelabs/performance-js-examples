@@ -22,7 +22,7 @@ const capabilities = {
 let driver
 let isTestPassed = true
 
-describe('Performance Testing', () => { // eslint-disable-line func-names
+describe('Performance Testing', () => {
     before(async () => {
         driver = await new Builder()
             .withCapabilities(capabilities)
