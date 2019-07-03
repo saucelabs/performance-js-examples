@@ -8,8 +8,8 @@ const saucelabs = new SauceLabs({ username, password })
 
 const server = `http://${username}:${password}@ondemand.saucelabs.com:80/wd/hub`
 const capabilities = {
-    platform: 'OS X 10.10',
-    version: 'latest',
+    platformName: 'OS X 10.10',
+    browserVersion: 'latest',
     browserName: 'chrome',
     'sauce:options': {
         extendedDebugging: true,
@@ -68,7 +68,13 @@ describe('Performance Testing', () => { // eslint-disable-line func-names
         metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`))
     })
 
-    it('(sauce:performance) custom command should assert pageLoad has not regressed', async () => {
+    /**
+     * The custom command will return 'pass' if the test falls within the predicted baseline
+     * or 'fail'  if the performance metric falls outside the predicted baseline.
+     * customers can decide how strict they want to be in failing tests by setting thier own
+     * failure points.
+     */
+    it('(sauce:performance) custom command should assert pageload and speedIndex has not regressed', async () => {
         await driver.sleep(5000)
         const output = await driver.executeScript('sauce:performance', {
             name: capabilities['sauce:options'].name,
