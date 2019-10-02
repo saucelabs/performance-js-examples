@@ -11,7 +11,7 @@ const capabilities = {
     extendedDebugging: true,
     capturePerformance: true,
     crmuxdriverVersion: 'beta',
-    name: 'Selenium Performance Testing',
+    name: 'Protractor Performance Testing',
 }
 
 exports.config = {

@@ -1,6 +1,6 @@
 const assert = require('assert')
 const { Builder, By } = require('selenium-webdriver')
-const SauceLabs = require('saucelabs')
+const SauceLabs = require('saucelabs').default
 
 const username = process.env.SAUCE_USERNAME
 const password = process.env.SAUCE_ACCESS_KEY
@@ -45,8 +45,12 @@ describe('Performance Testing', () => {
 
     after(async () => {
         await driver.quit()
-        // eslint-disable-next-line no-underscore-dangle
-        return saucelabs.updateJob(driver.sessionID.id_, { passed: isTestPassed })
+        return saucelabs.updateJob(
+            username,
+            // eslint-disable-next-line no-underscore-dangle
+            driver.sessionID.id_,
+            { passed: isTestPassed },
+        )
     })
 
     it('logs (sauce:performance) should check speedIndex', async () => {
@@ -75,7 +79,6 @@ describe('Performance Testing', () => {
      * failure points.
      */
     it('(sauce:performance) custom command should assert pageload and speedIndex has not regressed', async () => {
-        await driver.sleep(5000)
         const output = await driver.executeScript('sauce:performance', {
             name: capabilities['sauce:options'].name,
             metrics: ['speedIndex', 'load'],

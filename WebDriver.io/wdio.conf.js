@@ -7,6 +7,7 @@ const sauceOptions = {
         // use latest internal Sauce driver
         crmuxdriverVersion: 'beta',
         build: 'WebdriverIO Performance Example',
+        name: 'WebdriverIO Performance Example',
     },
 }
 

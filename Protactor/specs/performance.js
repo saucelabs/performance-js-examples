@@ -42,13 +42,14 @@ describe('Performance Testing', () => {
      */
     it('(sauce:performance) custom command should assert pageload and speedIndex has not regressed', async () => {
         await browser.sleep(5000)
+
         const output = await browser.executeScript('sauce:performance', {
             name: config.capabilities.name,
             metrics: ['load', 'speedIndex'],
         })
 
         const { result, details } = output
-        return assert.equal(
+        assert.equal(
             result, 'pass',
             `Regression detected for metrics ${JSON.stringify(details, null, 4)}`,
         )

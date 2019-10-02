@@ -3,11 +3,8 @@
 This repository contains sample script of performance custom commands by using following JS frameworks
 
 - [x] WebDriver.IO
-- [x] Nightwatch
-- [x] Protractor
-- [x] Cucumber (JS)
 - [x] Webdriver-Selenium with Mocha
-
+- [x] Protractor (__Note:__ we [don't recommend](https://dev.to/davert/5-reasons-you-should-not-use-protractor-in-2019-3l4b) to use Protractor anymore as the project has been sunsetted)
 
 ### Environment Setup
 
@@ -44,9 +41,7 @@ In demo app, we have `performance_glitch_user` user to test performance regressi
 
 	$ npm run regression:test
 
-
 [Sauce Labs Dashboard](https://app.saucelabs.com/dashboard)
-
 
 ### Advice/Troubleshooting
 

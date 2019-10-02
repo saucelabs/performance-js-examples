@@ -1,8 +1,6 @@
 const assert = require('assert')
 
 describe('Performance Testing', () => {
-    const { title } = this
-
     before(() => {
         browser.url('https://www.saucedemo.com')
 
@@ -39,7 +37,7 @@ describe('Performance Testing', () => {
      */
     it('(sauce:performance) custom command should assert pageload and speedIndex has not regressed', () => {
         const output = browser.execute('sauce:performance', {
-            name: title,
+            name: 'WebdriverIO Performance Example',
             metrics: ['speedIndex', 'load'],
         })
         const { result, details } = output
