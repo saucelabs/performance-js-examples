@@ -22,10 +22,15 @@ exports.config = {
     baseUrl: 'https://www.saucedemo.com',
     jasmineNodeOpts: {
         timeout: 1000 * 60 * 5,
+        defaultTimeoutInterval: 180000,
     },
-    onComplete(passed) {
-        return browser.getSession().then(
-            session => saucelabs.updateJob(session.getId(), { passed }),
-        )
-    },
+
+    onComplete() {
+        var printSessionId = (jobName) => {
+            browser.getSession().then((session) => {
+                console.log('SauceOnDemandSessionID=' + session.getId() + ' job-name=' + jobName);
+            })
+        }
+    }
+
 }
