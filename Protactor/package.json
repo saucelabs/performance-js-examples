@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "protractor": "^5.4.1",
-    "saucelabs": "^2.1.9"
+    "saucelabs": "^2.1.25"
   },
   "eslintConfig": {
     "globals": {
