@@ -17,7 +17,7 @@ const capabilities = {
 exports.config = {
     sauceUser: username,
     sauceKey: password,
-    specs: ['specs/performance.js'],
+    specs: ['specs/*.js'],
     capabilities,
     baseUrl: 'https://www.saucedemo.com',
     jasmineNodeOpts: {
