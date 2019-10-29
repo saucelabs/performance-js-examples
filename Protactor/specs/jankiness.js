@@ -7,7 +7,7 @@ describe('should test the jankiness', () => {
 
     it('tests jankiness with non optimized behavior', async () => {
         browser.get('https://googlechrome.github.io/devtools-samples/jank/')
-        await browser.sleep(5000)
+        await browser.sleep(1000)
 
         const addBtn = await element(by.css('.add'))
         for (let i = 0; i < 10; i += 1) {

@@ -26,11 +26,8 @@ exports.config = {
     },
 
     onComplete() {
-        var printSessionId = (jobName) => {
-            browser.getSession().then((session) => {
-                console.log('SauceOnDemandSessionID=' + session.getId() + ' job-name=' + jobName);
-            })
-        }
+        browser.getSession().then((session) => {
+            console.log('SauceOnDemandSessionID=' + session.getId() + ' job-name=' + capabilities.name);
+        })
     }
-
 }
