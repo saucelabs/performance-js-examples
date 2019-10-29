@@ -3,7 +3,6 @@ const { config } = require('../conf.js')
 
 describe('Performance Testing', () => {
     beforeAll(() => {
-        browser.waitForAngularEnabled(false)
         browser.get('/')
 
         element(by.css('[data-test="username"]'))

@@ -1,13 +1,8 @@
 const assert = require('assert')
 
 describe('should test the jankiness', () => {
-    beforeAll(() => {
-        browser.waitForAngularEnabled(false)
-    })
-
     it('tests jankiness with non optimized behavior', async () => {
-        browser.get('https://googlechrome.github.io/devtools-samples/jank/')
-        await browser.sleep(1000)
+        await browser.get('https://googlechrome.github.io/devtools-samples/jank/')
 
         const addBtn = await element(by.css('.add'))
         for (let i = 0; i < 10; i += 1) {

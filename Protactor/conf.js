@@ -25,9 +25,15 @@ exports.config = {
         defaultTimeoutInterval: 180000,
     },
 
-    onComplete() {
-        browser.getSession().then((session) => {
-            console.log('SauceOnDemandSessionID=' + session.getId() + ' job-name=' + capabilities.name);
-        })
-    }
+    onPrepare() {
+        browser.waitForAngularEnabled(false)
+    },
+
+    onComplete(passed) {
+        return browser.getSession().then(
+            async (session) => {
+                await saucelabs.updateJob(username, session.getId(), { passed });
+            },
+        )
+    },
 }
