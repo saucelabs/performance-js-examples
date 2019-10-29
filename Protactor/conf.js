@@ -31,9 +31,7 @@ exports.config = {
 
     onComplete(passed) {
         return browser.getSession().then(
-            async (session) => {
-                await saucelabs.updateJob(username, session.getId(), { passed });
-            },
+            session => saucelabs.updateJob(username, session.getId(), { passed })
         )
     },
 }
