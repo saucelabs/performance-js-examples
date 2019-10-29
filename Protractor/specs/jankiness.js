@@ -2,7 +2,7 @@ const assert = require('assert')
 
 describe('should test the jankiness', () => {
     it('tests jankiness with non optimized behavior', async () => {
-        browser.get('https://googlechrome.github.io/devtools-samples/jank/')
+        await browser.get('https://googlechrome.github.io/devtools-samples/jank/')
 
         const addBtn = await element(by.css('.add'))
         for (let i = 0; i < 10; i += 1) {
@@ -48,6 +48,6 @@ describe('should test the jankiness', () => {
         await optimizeBtn.click()
 
         const jankiness = await browser.executeScript('sauce:jankinessCheck')
-        assert.ok(jankiness.score > 0.9, `Score (${jankiness.score}) is lower than 0.9`)
+        assert.ok(jankiness.score > 0.8, `Score (${jankiness.score}) is lower than 0.8`)
     })
 })
