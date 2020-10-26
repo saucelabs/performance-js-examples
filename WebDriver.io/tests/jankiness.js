@@ -48,6 +48,6 @@ describe('should test the jankiness', () => {
         optimizeBtn.click()
 
         const jankiness = browser.execute('sauce:jankinessCheck')
-        assert.ok(jankiness.score > 0.9, `Score (${jankiness.score}) is lower than 0.9`)
+        assert.ok(jankiness.score > 0.7, `Score (${jankiness.score}) is lower than 0.7`)
     })
 })

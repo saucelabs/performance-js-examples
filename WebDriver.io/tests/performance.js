@@ -24,6 +24,9 @@ describe('Performance Testing', () => {
             'firstInteractive',
             'load',
             'speedIndex',
+            'largestContentfulPaint',
+            'totalBlockingTime',
+            'cumulativeLayoutShift'
         ]
         const performance = browser.execute('sauce:log', { type: 'sauce:performance' })
         metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`))

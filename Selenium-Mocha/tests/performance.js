@@ -67,6 +67,9 @@ describe('Performance Testing', () => {
             'firstInteractive',
             'load',
             'speedIndex',
+            'largestContentfulPaint',
+            'totalBlockingTime',
+            'cumulativeLayoutShift'
         ]
         const performance = await driver.executeScript('sauce:log', { type: 'sauce:performance' })
         metrics.forEach(metric => assert.ok(metric in performance, `${metric} metric is missing`))
