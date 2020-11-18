@@ -14,7 +14,6 @@ const capabilities = {
     'sauce:options': {
         extendedDebugging: true,
         capturePerformance: true,
-        crmuxdriverVersion: 'beta',
         name: 'Selenium Performance Testing',
     },
 }

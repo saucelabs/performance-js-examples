@@ -14,7 +14,6 @@ const capabilities = {
     'sauce:options': {
         extendedDebugging: true,
         capturePerformance: true,
-        crmuxdriverVersion: 'beta',
         name: 'Selenium Performance Testing',
     },
 }
@@ -90,6 +89,7 @@ describe('Performance Testing', () => {
     it('should get better results after optimizing animation', async () => {
         const optimizeBtn = await driver.findElement(By.css('.optimize'))
         await optimizeBtn.click()
+        await driver.url('https://googlechrome.github.io/devtools-samples/jank/')
 
         const jankiness = await driver.executeScript('sauce:jankinessCheck')
         assert.ok(jankiness.score > 0.9, `Score (${jankiness.score}) is lower than 0.9`)

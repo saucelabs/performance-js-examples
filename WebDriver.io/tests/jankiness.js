@@ -46,6 +46,7 @@ describe('should test the jankiness', () => {
     it('should get better results after optimizing animation', () => {
         const optimizeBtn = $('.optimize')
         optimizeBtn.click()
+        browser.url('https://googlechrome.github.io/devtools-samples/jank/')
 
         const jankiness = browser.execute('sauce:jankinessCheck')
         assert.ok(jankiness.score > 0.7, `Score (${jankiness.score}) is lower than 0.7`)
