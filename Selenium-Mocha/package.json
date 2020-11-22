@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "mocha": "^5.2.0",
+    "mocha": "^8.2.1",
     "saucelabs": "^2.1.9",
     "selenium-webdriver": "^4.0.0-alpha.1"
   }

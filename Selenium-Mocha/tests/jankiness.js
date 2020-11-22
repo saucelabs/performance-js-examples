@@ -14,7 +14,6 @@ const capabilities = {
     'sauce:options': {
         extendedDebugging: true,
         capturePerformance: true,
-        crmuxdriverVersion: 'beta',
         name: 'Selenium Performance Testing',
     },
 }
@@ -92,6 +91,6 @@ describe('Performance Testing', () => {
         await optimizeBtn.click()
 
         const jankiness = await driver.executeScript('sauce:jankinessCheck')
-        assert.ok(jankiness.score > 0.9, `Score (${jankiness.score}) is lower than 0.9`)
+        assert.ok(jankiness.score > 0.7, `Score (${jankiness.score}) is lower than 0.7`)
     })
 })

@@ -10,7 +10,6 @@ const capabilities = {
     browserName: 'chrome',
     extendedDebugging: true,
     capturePerformance: true,
-    crmuxdriverVersion: 'beta',
     name: 'Protractor Performance Testing',
 }
 
