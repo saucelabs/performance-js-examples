@@ -1,15 +1,15 @@
 const assert = require('assert')
 
 describe('should test the jankiness', () => {
-    it('tests jankiness with non optimized behavior', () => {
-        browser.url('https://googlechrome.github.io/devtools-samples/jank/')
+    it('tests jankiness with non optimized behavior', async () => {
+        await browser.url('https://googlechrome.github.io/devtools-samples/jank/')
 
-        const addBtn = $('.add')
+        const addBtn = await browser.$('.add')
         for (let i = 0; i < 10; i += 1) {
-            addBtn.click()
+            await addBtn.click()
         }
 
-        const jankiness = browser.execute('sauce:jankinessCheck')
+        const jankiness = await browser.execute('sauce:jankinessCheck')
         /**
          * returns following JSON object
          *
@@ -43,12 +43,12 @@ describe('should test the jankiness', () => {
         assert.ok(jankiness.score < 0.7)
     })
 
-    it('should get better results after optimizing animation', () => {
-        const optimizeBtn = $('.optimize')
-        optimizeBtn.click()
-        browser.url('https://googlechrome.github.io/devtools-samples/jank/')
+    it('should get better results after optimizing animation', async () => {
+        const optimizeBtn = await browser.$('.optimize')
+        await optimizeBtn.click()
+        await browser.url('https://googlechrome.github.io/devtools-samples/jank/')
 
-        const jankiness = browser.execute('sauce:jankinessCheck')
+        const jankiness = await browser.execute('sauce:jankinessCheck')
         assert.ok(jankiness.score > 0.7, `Score (${jankiness.score}) is lower than 0.7`)
     })
 })
