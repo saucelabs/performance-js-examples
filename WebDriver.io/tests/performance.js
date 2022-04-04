@@ -1,17 +1,20 @@
 const assert = require('assert')
 
 describe('Performance Testing', () => {
-    before(() => {
-        browser.url('https://www.saucedemo.com')
+    before(async () => {
+        await browser.url('https://www.saucedemo.com')
 
+        const userField = await browser.$('[data-test="username"]');
+        const passwordField = await browser.$('[data-test="password"]');
+        const submitButton = await browser.$('.btn_action');
         const username = process.env.PERF_USERNAME || 'standard_user'
-        $('[data-test="username"]').setValue(username)
-        $('[data-test="password"]').setValue('secret_sauce')
-        $('.btn_action').click()
+        await userField.setValue(username)
+        await passwordField.setValue('secret_sauce')
+        await submitButton.click()
     })
 
-    it('should be within performance budget', () => {
-        const performanceLog = browser.execute('sauce:log', { type: 'sauce:performance' })
+    it('should be within performance budget', async () => {
+        const performanceLog = await browser.execute('sauce:log', { type: 'sauce:performance' })
         /**
          * Sample performanceLog
          *  {
@@ -37,11 +40,11 @@ describe('Performance Testing', () => {
 
         const performanceBudget = {
             'load': { 'min': 100, 'max': 1000 },
-            'firstContentfulPaint': { 'min': 100, 'max': 1000 },
-            'largestContentfulPaint': { 'min': 100 , 'max': 1000 },
-            'firstInteractive': { 'min': 100 , 'max': 1000 },
+            'firstContentfulPaint': { 'min': 100, 'max': 1500 },
+            'largestContentfulPaint': { 'min': 100 , 'max': 2000 },
+            'firstInteractive': { 'min': 100 , 'max': 1500 },
             'speedIndex': { 'min': 100 , 'max': 1000 },
-            'score': { 'min': 0.9, 'max': 1 }
+            'score': { 'min': 0.7, 'max': 1 }
         }
 
         const failedMetrics = {}
@@ -67,8 +70,8 @@ describe('Performance Testing', () => {
      * customers can decide how strict they want to be in failing tests by setting thier own
      * failure points.
      */
-    it('(sauce:performance) custom command should assert pageload and speedIndex has not regressed', () => {
-        const output = browser.execute('sauce:performance', {
+    it('(sauce:performance) custom command should assert pageload and speedIndex has not regressed', async () => {
+        const output = await browser.execute('sauce:performance', {
             name: 'WebdriverIO Performance Example',
             metrics: ['speedIndex', 'load'],
         })
