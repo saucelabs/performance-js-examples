@@ -11,7 +11,7 @@
     "https-proxy-agent": "latest"
   },
   "dependencies": {
-    "protractor": "^5.4.1",
+    "protractor": "^5.4.4",
     "saucelabs": "^3.0.1"
   },
   "eslintConfig": {
